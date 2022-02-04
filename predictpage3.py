@@ -24,7 +24,7 @@ import pandas as pd
 import numpy as np
 
 def load_model():
-    with open('trainedmodel.sav', 'rb') as file:
+    with open('D://dsai//project//trainedmodel.sav', 'rb') as file:
         data = pickle.load(file)
     return data
 
@@ -34,7 +34,7 @@ lr_model = data["model"]
 oe_dependants = data["oe_dependants"]
 oe_grad = data["oe_grad"]
 oe_prop = data["oe_prop"]
-
+sc = data["scalar"]
 
 def show_predict_page():
     st.title("Loan Prediction")
@@ -110,9 +110,13 @@ def show_predict_page():
         X = pd.DataFrame(lst)
         X = X.T
        
+        X = np.array(X)
+        mn = sc.transform(X)
         
-        
-        loan_status = lr_model.predict(np.array(X))
-        st.write('loan status:',loan_status[0])
+        loan_status = lr_model.predict(mn)
+        if loan_status[0] == "Y":
+            st.write('### You are eligible for home loan')
+        else:
+            st.write('### You are not eligible for home loan')
 
 
