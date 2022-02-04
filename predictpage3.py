@@ -24,7 +24,7 @@ import pandas as pd
 import numpy as np
 
 def load_model():
-    with open('D://dsai//project//trainedmodel.sav', 'rb') as file:
+    with open('trainedmodel.sav', 'rb') as file:
         data = pickle.load(file)
     return data
 
